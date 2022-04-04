@@ -1,6 +1,6 @@
 <?php
 
-// app/messages/en.php
+// app/messages/ja.php
 $messages = [
     'login'      => 'ログインする',
     'email'     => 'Eメール',

@@ -41,6 +41,6 @@ class AdminController extends Controller
     public function logoutAction()
     {
         $this->session->set('admin', 0);
-        $this->response->redirect("/admin?locale=en");
+        $this->response->redirect("/admin?bearer=&locale=en");
     }
 }

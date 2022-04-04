@@ -1,6 +1,6 @@
 <?php
 
-// app/messages/en.php
+// app/messages/hi.php
 $messages = [
     'login'      => 'लॉग इन करें',
     'email'     => 'ईमेल',

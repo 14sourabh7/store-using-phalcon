@@ -1,6 +1,6 @@
 <?php
 
-// app/messages/en.php
+// app/messages/fr.php
 $messages = [
     'login'      => 'connexion',
     'email'     => 'e-mail',
