@@ -10,12 +10,12 @@ class SettingsController extends Controller
 
         //caching the locale
         $this->view->locale = $this->getlocale;
-        $bearer = $this->request->get('bearer');
-        $locale = $this->request->get('locale');
+
         $escaper = new \App\Components\MyEscaper();
         $settings = new Settings();
         $setting = $settings->getSettings();
-
+        $bearer = $escaper->sanitize($this->request->get('bearer'));
+        $locale = $escaper->sanitize($this->request->get('locale'));
         //variables to populate setting form
         $this->view->price = $setting->price;
         $this->view->stock = $setting->stock;

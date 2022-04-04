@@ -16,7 +16,6 @@ class ProductController extends Controller
     public function addAction()
     {
 
-        $eventManager = $this->di->get('EventsManager');
         $this->view->locale = $this->getlocale;
 
         $escaper = new \App\Components\MyEscaper();
@@ -24,8 +23,8 @@ class ProductController extends Controller
 
         $checkPost = $this->request->isPost();
         $this->view->errorMessage = "";
-        $bearer = $this->request->get('bearer');
-        $locale = $this->request->get('locale');
+        $bearer = $escaper->sanitize($this->request->get('bearer'));
+        $locale = $escaper->sanitize($this->request->get('locale'));
         if ($checkPost) {
 
             $inputs = $this->request->getPost();

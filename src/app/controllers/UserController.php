@@ -36,8 +36,6 @@ class UserController extends Controller
             $payload = array(
                 "iss" => "localhost:8080",
                 "aud" => "localhost:8080",
-                "iat" => 1356999524,
-                "nbf" => 1357000000,
                 'role' => $role
             );
 

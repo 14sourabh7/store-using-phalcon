@@ -15,7 +15,6 @@ class OrderController extends Controller
     public function addAction()
     {
         $escaper = new \App\Components\MyEscaper();
-        $eventManager = $this->di->get('EventsManager');
         $product = new Products();
         $order = new Orders();
 
@@ -26,8 +25,9 @@ class OrderController extends Controller
         $this->view->locale = $this->getlocale;
         $this->view->products = $product->getProducts();
         $this->view->errorMessage = "";
-        $bearer = $this->request->get('bearer');
-        $locale = $this->request->get('locale');
+        $bearer = $escaper->sanitize($this->request->get('bearer'));
+        $locale = $escaper->sanitize($this->request->get('locale'));
+
         $checkPost = $this->request->isPost();
         if ($checkPost) {
 

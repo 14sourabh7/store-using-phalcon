@@ -89,7 +89,7 @@ class EventHandler extends Injectable
             = $application->router->getControllerName();
         $action
             = $application->router->getActionName() ? $application->router->getActionName() : 'index';
-
+        $errorMsg = 'unauthorised access';
         if ($role) {
             if (true === is_file($aclFile)) {
                 $acl = unserialize(file_get_contents($aclFile));
@@ -100,7 +100,7 @@ class EventHandler extends Injectable
                     $role = $decodeArr['role'];
 
                     if (!$role || true !== $acl->isAllowed($role, $controller, $action)) {
-                        $logger->log('unauthorised access', 'error');
+                        $logger->log($errorMsg, 'error');
                         die($local->_('authorised'));
                     }
                 } catch (\Exception $e) {
@@ -117,7 +117,7 @@ class EventHandler extends Injectable
             $admin = $this->session->get('admin');
             if (!$admin) {
                 if ($controller !== 'admin' || $action !== 'index') {
-                    $logger->log('unauthorised access', 'error');
+                    $logger->log($errorMsg, 'error');
                     die($local->_('authorised'));
                 }
             }

@@ -24,10 +24,13 @@ class AccessController extends Controller
 
         $permissions = new Permissions();
         $permission = $permissions->getPermissions();
+
         $roles = new Roles();
         $role = $roles->getRoles();
+
         $controllers = new Controllers();
         $controller = $controllers->getControllers();
+
         $this->view->permissions = $permission;
         $this->view->roles = $role;
         $this->view->controllers = $controller;
@@ -52,10 +55,6 @@ class AccessController extends Controller
                         $acl->addRole($r->role);
                     }
                     foreach ($controller as $c) {
-                        if ($c->controller == 'user') {
-                            $acl->addComponent($c->controller, ['index', 'login', 'signup']);
-                            continue;
-                        }
                         $acl->addComponent($c->controller, ['index', 'add', 'update', 'delete']);
                     }
                     $permission = $permissions->getPermissions();
