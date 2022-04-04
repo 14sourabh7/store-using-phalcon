@@ -12,14 +12,20 @@ class UserController extends Controller
         $this->view->users = $users->getUsers();
         $this->view->locale = $this->getlocale;
     }
+
+    /**
+     * action to add user and generate token
+     *
+     * @return void
+     */
     public function addUserAction()
     {
         $escaper = new \App\Components\MyEscaper();
-        $roles = Roles::find();
+        $roles = new Roles();
+        $roles = $roles->getRoles();
 
-        //caching the locale
+
         $this->view->locale = $this->getlocale;
-
         $this->view->roles = $roles;
         $this->view->tokenCheck = 0;
         $this->view->msg = "";
@@ -57,6 +63,12 @@ class UserController extends Controller
         }
     }
 
+
+    /**
+     * action to delete user
+     *
+     * @return void
+     */
     public function deleteAction()
     {
         $id = $this->request->get('id');

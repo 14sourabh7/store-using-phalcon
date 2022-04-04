@@ -23,9 +23,10 @@ class EventHandler extends Injectable
     public function productSave()
     {
         $logger = new \App\Components\MyLogger();
-
-        $setting = Settings::findFirst('admin_id=1');
-        $product = Products::findFirst(['order' => 'product_id DESC']);
+        $settings = new Settings();
+        $products = new Products();
+        $setting = $settings->getSettings();
+        $product = $products->getLastProduct();
 
         if ($product->stock == 0) {
             $product->stock = $setting->stock;
@@ -56,8 +57,10 @@ class EventHandler extends Injectable
     public function orderSave()
     {
         $logger = new \App\Components\MyLogger();
-        $setting = Settings::findFirst('admin_id=1');
-        $order = Orders::findFirst(['order' => 'order_id DESC']);
+        $setting = new Settings();
+        $order = new Orders();
+        $setting = $setting->getSettings();
+        $order = $order->getLastOrder();
 
         if ($order->zip == 0) {
             $order->zip = $setting->zipcode;
@@ -66,6 +69,7 @@ class EventHandler extends Injectable
         $order->update();
         $logger->log("order updated", 'info');
     }
+
 
     /**
      * beforeHandleRequest()
@@ -90,6 +94,8 @@ class EventHandler extends Injectable
         $action
             = $application->router->getActionName() ? $application->router->getActionName() : 'index';
         $errorMsg = 'unauthorised access';
+
+        //if bearer is given in url
         if ($role) {
             if (true === is_file($aclFile)) {
                 $acl = unserialize(file_get_contents($aclFile));
@@ -99,6 +105,7 @@ class EventHandler extends Injectable
                     $decodeArr = (array)$decoded;
                     $role = $decodeArr['role'];
 
+                    //checking for permissions
                     if (!$role || true !== $acl->isAllowed($role, $controller, $action)) {
                         $logger->log($errorMsg, 'error');
                         die($local->_('authorised'));
@@ -114,7 +121,10 @@ class EventHandler extends Injectable
                 die($local->_('filenot'));
             }
         } else {
+            //if admin grant access everywhere
             $admin = $this->session->get('admin');
+
+            //if not admin check whether page is admin / index or not!!
             if (!$admin) {
                 if ($controller !== 'admin' || $action !== 'index') {
                     $logger->log($errorMsg, 'error');

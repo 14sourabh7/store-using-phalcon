@@ -11,6 +11,13 @@ class Users extends Model
     public $role;
 
 
+    /**
+     * getUsers()
+     * 
+     * function to get users from db
+     *
+     * @return void
+     */
     public function getUsers()
     {
         return Users::find();

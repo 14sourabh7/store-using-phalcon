@@ -28,6 +28,7 @@ class OrderController extends Controller
         $bearer = $escaper->sanitize($this->request->get('bearer'));
         $locale = $escaper->sanitize($this->request->get('locale'));
 
+        //checking post request
         $checkPost = $this->request->isPost();
         if ($checkPost) {
 
@@ -46,10 +47,14 @@ class OrderController extends Controller
                 'date' => $currentDate
             ];
 
+            //checking for input
             if ($name && $address && $quantity && $product) {
 
+
+                //validating quantity
                 if (is_numeric($quantity)) {
                     if ($zip) {
+                        //validating zip
                         if (is_numeric($zip)) {
 
                             $success = $order->addOrder($orderArr);
@@ -60,7 +65,11 @@ class OrderController extends Controller
                         $orderArr['zip'] = 0;
                         $success = $order->addOrder($orderArr);
                     }
+
+                    //if order is added
                     if ($success) {
+
+                        //firing event for after order save event
                         $eventManager = $this->di->get('EventsManager');
                         $eventManager->fire('order:orderSave', $this);
                         $this->response->redirect("/order?bearer=" . $bearer . "&locale=" . $locale);

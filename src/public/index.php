@@ -69,6 +69,7 @@
         }
     );
 
+    //session
     $container->set(
         'session',
         function () {
@@ -84,12 +85,15 @@
         }
     );
 
+    //events
     $eventsManager = new Manager();
     $application->setEventsManager($eventsManager);
     $container->set('EventsManager', $eventsManager);
     $eventsManager->attach('order', new \App\Handler\EventHandler());
     $eventsManager->attach('application:beforeHandleRequest', new \App\Handler\EventHandler());
 
+
+    //response
     $container->set(
         'response',
         function () {
@@ -99,7 +103,7 @@
     );
 
 
-
+    //db
     $container->set(
         'db',
         function () {
@@ -115,14 +119,15 @@
         }
     );
 
-    //cache
 
+    //cache
     $serializerFactory = new SerializerFactory();
     $options = ['lifetime' => 7200];
     $adapter = new Memory($serializerFactory, $options);
     $cache = new Cache($adapter);
     $container->set('cache', $cache);
 
+    //locale
     $container->set('locale', (new \App\Components\Locale())->getTranslator());
     $container->set('getlocale', (new \App\Components\Locale())->getLocale());
 

@@ -43,14 +43,8 @@ class SettingsController extends Controller
                         'zipcode' => $zipcode
                     ];
 
-                    $setting->assign(
-                        $settingArr,
-                        [
-                            'title', 'price', 'stock', 'zipcode'
-                        ]
-                    );
-
-                    $success = $setting->update();
+                    //updating setting
+                    $success = $setting->updateSetting($settingArr);
 
                     if ($success) {
                         $this->response->redirect('/product?bearer=' . $bearer . "&locale=" . $locale);

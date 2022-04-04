@@ -1,5 +1,5 @@
 <?php
-//controller to handle access
+//controller to handle access 
 use Phalcon\Mvc\Controller;
 use Phalcon\Acl\Adapter\Memory;
 
@@ -18,7 +18,6 @@ class AccessController extends Controller
      */
     public function buildaclAction()
     {
-        //caching the locale
 
         $this->view->locale = $this->getlocale;
 
@@ -37,12 +36,16 @@ class AccessController extends Controller
 
         $check = $this->request->getPost();
         if ($check) {
+            //checking wheter permission already exists
             $dbrole = $this->request->getPost()['roles'];
             $dbcontroller = $this->request->getPost()['controller'];
             $dbaction = $this->request->getPost()['action'];
             $permissionCheck = Permissions::find("role = '$dbrole' AND action= '$dbaction' AND controller='$dbcontroller'");
 
+
+            //builiding acl 
             if (count($permissionCheck) < 1) {
+
                 $permissions->role = $dbrole;
                 $permissions->controller = $dbcontroller;
                 $permissions->action = $dbaction;

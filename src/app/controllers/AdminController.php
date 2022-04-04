@@ -12,6 +12,7 @@ class AdminController extends Controller
         $this->view->message = '';
         $logger = new \App\Components\MyLogger();
 
+        //checking post request
         $check = $this->request->isPost();
         if ($check) {
             if ($this->request->getPost()['username'] && $this->request->getPost()['password']) {
@@ -23,7 +24,10 @@ class AdminController extends Controller
 
                 $admin = new Admins();
                 $data = $admin->getAdmin($username, $password);
+
+
                 if ($data) {
+                    //if credentials are correct 
                     $this->session->set('admin', 1);
                     $this->response->redirect("/product?bearer=&locale=en");
                 } else {

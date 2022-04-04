@@ -10,9 +10,37 @@ class Settings extends Model
     public $stock;
     public $zipcode;
 
+    /**
+     * getSettings()
+     * 
+     * function to get the settings
+     *
+     * @return void
+     */
     public function getSettings()
     {
         return
             Settings::findFirst('admin_id=1');
+    }
+
+    /**
+     * updateSettings($settingArr)
+     * 
+     * function to update the settings
+     *
+     * @param [type] $settingArr
+     * @return void
+     */
+    public function updateSetting($settingArr)
+    {
+        $setting = Settings::findFirst('admin_id=1');
+        $setting->assign(
+            $settingArr,
+            [
+                'title', 'price', 'stock', 'zipcode'
+            ]
+        );
+        $success = $setting->update();
+        return $success;
     }
 }

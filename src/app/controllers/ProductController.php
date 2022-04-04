@@ -21,12 +21,14 @@ class ProductController extends Controller
         $escaper = new \App\Components\MyEscaper();
         $product = new Products();
 
-        $checkPost = $this->request->isPost();
+
         $this->view->errorMessage = "";
         $bearer = $escaper->sanitize($this->request->get('bearer'));
         $locale = $escaper->sanitize($this->request->get('locale'));
-        if ($checkPost) {
 
+        //checking for post request
+        $checkPost = $this->request->isPost();
+        if ($checkPost) {
             $inputs = $this->request->getPost();
             $name = $escaper->sanitize($inputs['name']);
             $description = $escaper->sanitize($inputs['description']);
@@ -42,7 +44,7 @@ class ProductController extends Controller
                 'stock' => $stock
             ];
 
-
+            //checking for inputs
             if ($name && $description && $tags) {
 
                 if ($price || $stock) {
@@ -51,6 +53,7 @@ class ProductController extends Controller
                     $price = 0;
                     $stock = 0;
 
+                    //validating price
                     if ($price) {
                         if (is_numeric($price)) {
                             $checkP = 1;
@@ -60,6 +63,7 @@ class ProductController extends Controller
                         }
                     }
 
+                    //validating stock
                     if ($stock) {
 
                         if (is_numeric($stock)) {
@@ -79,7 +83,10 @@ class ProductController extends Controller
                     $success = $product->addProduct($productArr);
                 }
 
+                //if product is added
                 if ($success) {
+
+                    //firing after product save event
                     $eventManager = $this->di->get('EventsManager');
                     $eventManager->fire('order:productSave', $this);
                     $this->response->redirect("/product?bearer=" . $bearer . "&locale=" . $locale);

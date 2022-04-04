@@ -12,10 +12,26 @@ class Orders extends Model
     public $quantity;
     public $date;
 
+    /**
+     * getOrders()
+     * 
+     * function to return all orders
+     *
+     * @return void
+     */
     public function getOrders()
     {
         return Orders::find();
     }
+
+    /**
+     * addOrder($orderArr)
+     * 
+     * function to add a new order
+     *
+     * @param [type] $orderArr
+     * @return void
+     */
     public function addOrder($orderArr)
     {
         $order = new Orders();
@@ -28,6 +44,8 @@ class Orders extends Model
         $success = $order->save();
 
         if ($success) {
+
+            //if order is placed updating products
             $id = $orderArr['product'];
             $product = Products::findFirst("product_id = '$id'");
             $quantity = $product->stock;
@@ -40,5 +58,10 @@ class Orders extends Model
             }
         }
         return $success;
+    }
+    public function getLastOrder()
+    {
+        return
+            Orders::findFirst(['order' => 'order_id DESC']);
     }
 }
