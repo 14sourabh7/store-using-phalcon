@@ -1,0 +1,42 @@
+  <?php
+    include '../app/views/uicomponents/nav.phtml';
+    include '../app/views/uicomponents/language.phtml';
+    ?>
+
+  <?php
+
+    if ($orders)
+        if ($orders->count() > 0) {
+    ?>
+
+      <table class="table table-bordered table-hover">
+          <thead class="thead-light">
+              <tr>
+                  <th><?php echo $locale->_('order') . $locale->_('id'); ?></th>
+                  <th><?php echo $locale->_('name') ?></th>
+                  <th><?php echo $locale->_('address') ?></th>
+                  <th><?php echo $locale->_('zip') ?></th>
+                  <th><?php echo $locale->_('product') ?></th>
+                  <th><?php echo $locale->_('quantity') ?></th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <?php
+
+
+                foreach ($orders as $order) { ?>
+                  <tr>
+                      <td><?php echo $order->order_id; ?></td>
+                      <td><?php echo $order->name; ?></td>
+                      <td><?php echo $order->address; ?></td>
+                      <td><?php echo $order->zip; ?></td>
+                      <td><?php echo $order->product; ?></td>
+                      <td><?php echo $order->quantity; ?></td>
+                  </tr>
+              <?php } ?>
+          </tbody>
+      </table>
+
+  <?php
+        }; ?>

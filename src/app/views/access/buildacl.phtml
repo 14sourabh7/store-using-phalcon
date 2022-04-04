@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    </script>
+
+</head>
+
+<body>
+    <div class="dropdown float-right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <?php echo $locale->_('lang') ?>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=en" ?>">English</a>
+            <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=fr" ?>">French</a>
+            <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=hi" ?>">Hindi</a>
+            <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=ja" ?>">Japanese</a>
+        </div>
+    </div>
+    <?php echo $this->tag->linkTo(["/user", "Log Out", 'class' => 'btn btn-success']); ?>
+    <h1 class="text-center">Give Permissions</h1>
+    <br>
+
+    <table class="table">
+        <thead>Permissions</thead>
+        <tr>
+            <th>role</th>
+            <th>controller</th>
+            <th>Action</th>
+        </tr><?php
+                if ($permissions)
+                    if ($permissions->count() > 0) {
+                        foreach ($permissions as $permission) { ?>
+                <tr>
+                    <td><?php echo $permission->role ?></td>
+                    <td><?php echo $permission->controller ?></td>
+                    <td><?php echo $permission->action ?></td>
+                    <?php
+                            if ($permission->role != "admin") {
+                                echo " <td><a href='/access/del?bearer=" . $_GET['bearer'] . "&id=$permission->id'>Remove</a></td>";
+                            }
+                    ?>
+
+                </tr>
+
+        <?php  };
+                    } ?>
+
+    </table>
+
+
+    <?php echo $this->tag->form(""); ?>
+    <select name='roles'>
+        <?php if ($roles)
+            if ($roles->count() > 0) {
+                foreach ($roles as $role) {
+                    if ($role->role == "admin") {
+                        continue;
+                    }
+        ?>
+                <option name='roles' value="<?php
+                                            echo $role->role; ?>">
+                    <?php
+                    echo $role->role;
+                    ?>
+                </option> <?php  };
+                    } ?>
+    </select>
+    <select name='controller' class='controller'>
+        <?php if ($controllers)
+            if ($controllers->count() > 0) {
+
+                foreach ($controllers as $controller) {
+                    if ($controller->controller == 'access') {
+                        continue;
+                    };
+        ?>
+                <option name='controller' value="<?php
+                                                    echo $controller->controller; ?>">
+                    <?php
+                    echo $controller->controller;
+                    ?>
+                </option> <?php  };
+                    } ?>
+
+    </select>
+
+    <select name='action' class='action'>
+
+
+        <option value="index" name='action'>index</option>
+        <option value="add" name='action'>add</option>
+        <option value="update" name='action'>update</option>
+        <option value="delete" name='action'>delete</option>
+    </select>
+    <?php echo $this->tag->submitButton(["Add Permission", "class" => "btn btn-primary"]); ?>
+    </form>
+
+</body>
+<script src="../public/js/script.js"></script>
+
+</html>

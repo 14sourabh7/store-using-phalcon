@@ -1,0 +1,31 @@
+<?php echo $this->tag->linkTo(["/user", "Log Out", 'class' => 'btn btn-success']); ?>
+<div class="dropdown float-right">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?php echo $locale->_('lang') ?>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=en" ?>">English</a>
+        <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=fr" ?>">French</a>
+        <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=hi" ?>">Hindi</a>
+        <a class="dropdown-item" href="<?php echo $_SERVER['REQUEST_URI'] . "&locale=ja" ?>">Japanese</a>
+    </div>
+</div>
+<div class="d-flex">
+    <div>
+        <h1><?php echo $locale->_('loadpage'); ?></h1>
+
+        <h3><?php echo $locale->_('currentcontrollers'); ?> </h3>
+        <?php
+        if ($controllers)
+            if ($controllers->count() > 0) {
+                foreach ($controllers as $controller) { ?>
+                <p>
+                    <?php
+                    echo $controller->controller;
+                    ?>
+                </p> <?php  };
+                } ?>
+    </div>
+
+
+</div>

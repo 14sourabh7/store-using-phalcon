@@ -1,0 +1,23 @@
+<h2><?php echo 'login'; ?></h2>
+<?php echo $this->tag->form(""); ?>
+
+<p>
+    <label for="username"><?php echo 'username' ?></label>
+    <?php echo $this->tag->textField("username"); ?>
+</p>
+
+<p>
+    <label for="password"><?php echo 'password'; ?></label>
+    <?php echo $this->tag->textField("password"); ?>
+</p>
+<p>
+
+    <?php
+
+    echo $this->tag->submitButton(['login', "class" => "btn btn-primary"]);
+    echo $message;
+    ?>
+
+</p>
+
+</form>

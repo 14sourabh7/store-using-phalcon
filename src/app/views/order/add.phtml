@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $locale->_('order'); ?></title>
+</head>
+
+<body>
+
+    <?php
+    include '../app/views/uicomponents/nav.phtml';
+    include '../app/views/uicomponents/language.phtml';
+    ?>
+
+    <h2>Add order</h2>
+
+    <?php echo $this->tag->form(""); ?>
+
+    <p>
+        <label for="name"><?php echo $locale->_('name') ?></label>
+        <?php echo $this->tag->textField("name"); ?>
+    </p>
+
+    <p>
+        <label for="address"><?php echo $locale->_('address') ?></label>
+        <?php echo $this->tag->textArea("address"); ?>
+    </p>
+
+    <p>
+        <label for="zip"><?php echo $locale->_('zip') ?></label>
+        <?php echo $this->tag->textField("zip"); ?>
+    </p> select product id
+    <select name="product">
+
+        <?php
+        if ($products)
+            if ($products->count() > 0) {
+                foreach ($products as $product) { ?>
+                <option value='<?php echo $product->product_id; ?>' name='product'><?php echo $product->name; ?>
+                </option>
+        <?php }
+            }; ?>
+    </select>
+    <p>
+        <label for="quantity"><?php echo $locale->_('quantity') ?></label>
+        <?php echo $this->tag->textField("quantity"); ?>
+    </p>
+
+    <p>
+        <?php echo $this->tag->submitButton([$locale->_('add'), "class" => "btn btn-primary"]);
+        echo $errorMessage;
+        ?>
+    </p>
+
+    </form>
+</body>
+
+</html>

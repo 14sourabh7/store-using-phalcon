@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $locale->_('settings') ?></title>
+</head>
+
+<body> <?php
+        include '../app/views/uicomponents/nav.phtml';
+        include '../app/views/uicomponents/language.phtml';
+        ?>
+
+    <h2><?php echo $locale->_('settings') ?></h2>
+
+
+
+    <?php echo $this->tag->form(""); ?>
+    <p>
+        <label for="title"><?php echo $locale->_('title') . " " . $locale->_('optimization') . " :"; ?>
+            <select name="title">
+                <option value="<?php echo $title ?>" name='tags'><?php echo $title ?> <?php echo $locale->_('tags') ?></option>
+                <option value="with" name='tags'><?php echo $locale->_('with') . " " . $locale->_('tags'); ?></option>
+                <option value="without" name='tags'><?php echo $locale->_('without') . " " . $locale->_('tags'); ?></option>
+            </select>
+        </label>
+    </p>
+    <p>
+        <label for="price"> <?php echo $locale->_('default') . " " . $locale->_('price'); ?>
+            <?php
+            echo $this->tag->textField(['price', 'value' => $price]);
+            ?>
+        </label>
+    </p>
+    <p>
+        <label for="stock"> <?php echo $locale->_('default') . " " . $locale->_('stock'); ?>
+            <?php
+            echo $this->tag->textField(['stock', 'value' => $stock]);
+            ?>
+        </label>
+    </p>
+    <p>
+        <label for="zip"> <?php echo $locale->_('default') . " " . $locale->_('zip'); ?>
+            <?php
+            echo $this->tag->textField(['zip', 'value' => $zip]);
+            ?>
+        </label>
+    </p>
+    <p>
+        <?php echo $this->tag->submitButton([$locale->_('update'), "class" => "btn btn-primary"]);
+        echo $errorMessage;
+        ?>
+    </p>
+
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<?php
+echo $this->tag->linkTo(["/user?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('user'), 'class' => 'btn btn-primary']);
+echo $this->tag->linkTo(["/user/adduser?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('add') . " " . $locale->_('user'), 'class' => 'btn btn-primary']);
+
+echo $this->tag->linkTo(["/order?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('order'), 'class' => 'btn btn-danger']);
+echo $this->tag->linkTo(["/order/add?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('add') . " " . $locale->_('order'), 'class' => 'btn btn-primary']);
+
+echo $this->tag->linkTo(["/product?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('product'), 'class' => 'btn btn-danger']);
+echo $this->tag->linkTo(["/product/add?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('add') . " " . $locale->_('product'), 'class' => 'btn btn-primary']);
+
+echo $this->tag->linkTo(["/settings?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale'], $locale->_('settings'), 'class' => 'btn btn-secondary']);
+echo $this->tag->linkTo(["/admin/logout", $locale->_('logout'), 'class' => 'btn btn-success']);

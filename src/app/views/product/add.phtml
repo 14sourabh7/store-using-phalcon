@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $locale->_('add') . " " . $locale->_('product') ?></title>
+</head>
+
+<body>
+    <?php
+    include '../app/views/uicomponents/nav.phtml';
+    include '../app/views/uicomponents/language.phtml';
+    ?>
+    <?php echo $this->tag->linkTo(["/user", "Log Out", 'class' => 'btn btn-success']); ?>
+    <h2><?php echo $locale->_('add') . " " . $locale->_('product') ?></h2>
+
+    <?php echo $this->tag->form(""); ?>
+
+    <p>
+        <label for="name"><?php echo $locale->_('name') ?></label>
+        <?php echo $this->tag->textField("name"); ?>
+    </p>
+
+    <p>
+        <label for="email"><?php echo $locale->_('email') ?></label>
+        <?php echo $this->tag->textArea("description"); ?>
+    </p>
+    <p>
+        <label for="tags"><?php echo $locale->_('tags') ?></label>
+        <?php echo $this->tag->textField("tags"); ?>
+    </p>
+    <p>
+        <label for="price"><?php echo $locale->_('price') ?></label>
+        <?php echo $this->tag->textField("price"); ?>
+    </p>
+    <p>
+        <label for="stock"><?php echo $locale->_('stock') ?></label>
+        <?php echo $this->tag->textField("stock"); ?>
+    </p>
+
+    <p>
+        <?php echo $this->tag->submitButton([$locale->_('add'), "class" => "btn btn-primary"]);
+        echo $errorMessage;
+        ?>
+    </p>
+
+    </form>
+</body>
+
+</html>
