@@ -21,7 +21,6 @@ class AdminController extends Controller
                 $password =
                     $escaper->sanitize($this->request->getPost()['password']);
 
-
                 $admin = new Admins();
                 $data = $admin->getAdmin($username, $password);
                 if ($data) {

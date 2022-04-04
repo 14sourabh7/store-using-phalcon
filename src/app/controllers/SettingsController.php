@@ -10,7 +10,8 @@ class SettingsController extends Controller
 
         //caching the locale
         $this->view->locale = $this->getlocale;
-
+        $bearer = $this->request->get('bearer');
+        $locale = $this->request->get('locale');
         $escaper = new \App\Components\MyEscaper();
         $settings = new Settings();
         $setting = $settings->getSettings();
@@ -52,7 +53,7 @@ class SettingsController extends Controller
                     $success = $setting->update();
 
                     if ($success) {
-                        $this->response->redirect('/product?bearer=' . $_GET['bearer'] . "&locale=" . $_GET['locale']);
+                        $this->response->redirect('/product?bearer=' . $bearer . "&locale=" . $locale);
                     }
                 } else {
                     $this->view->errorMessage = '*price, stock and zip must be numeric';

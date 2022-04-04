@@ -26,7 +26,8 @@ class OrderController extends Controller
         $this->view->locale = $this->getlocale;
         $this->view->products = $product->getProducts();
         $this->view->errorMessage = "";
-
+        $bearer = $this->request->get('bearer');
+        $locale = $this->request->get('locale');
         $checkPost = $this->request->isPost();
         if ($checkPost) {
 
@@ -62,7 +63,7 @@ class OrderController extends Controller
                     if ($success) {
                         $eventManager = $this->di->get('EventsManager');
                         $eventManager->fire('order:orderSave', $this);
-                        $this->response->redirect("/order?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale']);
+                        $this->response->redirect("/order?bearer=" . $bearer . "&locale=" . $locale);
                     }
                 } else {
                     $this->view->errorMessage =

@@ -115,7 +115,8 @@ class AccessController extends Controller
      */
     public function delAction()
     {
-        $permissions = Permissions::find("id = '" . $_GET["id"] . "' ");
+        $id = $this->request->get('id');
+        $permissions = Permissions::find("id = '" . $id . "' ");
         $result = $permissions->delete();
         if ($result) {
             $role = Roles::find();

@@ -24,7 +24,8 @@ class ProductController extends Controller
 
         $checkPost = $this->request->isPost();
         $this->view->errorMessage = "";
-
+        $bearer = $this->request->get('bearer');
+        $locale = $this->request->get('locale');
         if ($checkPost) {
 
             $inputs = $this->request->getPost();
@@ -82,7 +83,7 @@ class ProductController extends Controller
                 if ($success) {
                     $eventManager = $this->di->get('EventsManager');
                     $eventManager->fire('order:productSave', $this);
-                    $this->response->redirect("/product?bearer=" . $_GET['bearer'] . "&locale=" . $_GET['locale']);
+                    $this->response->redirect("/product?bearer=" . $bearer . "&locale=" . $locale);
                 }
             } else {
                 $this->view->errorMessage = $this->locale->_('er5');
