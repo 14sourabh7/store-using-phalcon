@@ -60,10 +60,10 @@ class UserController extends Controller
     public function deleteAction()
     {
         $id = $this->request->get('id');
-        $user = Users::find("user_id='$id'");
-        $result = $user->delete();
+        $user = new Users();
+        $result =  $user->deleteUser($id);
         if ($result) {
-            $this->response->redirect('/user');
+            $this->response->redirect('/user?bearer=&locale=en');
         }
     }
 }

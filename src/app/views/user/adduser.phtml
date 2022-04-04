@@ -16,68 +16,67 @@
     include '../app/views/uicomponents/nav.phtml';
     include '../app/views/uicomponents/language.phtml';
     ?>
-    <div class="dropdown float-right">
 
 
-        <h2><?php echo $locale->_('add') . " " . $locale->_('user'); ?></h2>
+    <h2><?php echo $locale->_('add') . " " . $locale->_('user'); ?></h2>
 
-        <?php echo $this->tag->form(""); ?>
+    <?php echo $this->tag->form(""); ?>
 
-        <p>
-            <label for="name"><?php echo $locale->_('name') ?></label>
-            <?php echo $this->tag->textField("name"); ?>
-        </p>
+    <p>
+        <label for="name"><?php echo $locale->_('name') ?></label>
+        <?php echo $this->tag->textField("name"); ?>
+    </p>
 
-        <p>
-            <label for="email"><?php echo $locale->_('email') ?></label>
-            <?php echo $this->tag->textField("email"); ?>
-        </p>
-        <p>
-            <label for="password"><?php echo $locale->_('password') ?></label>
-            <?php echo $this->tag->textField("password"); ?>
-        </p>
-        <?php echo $locale->_('add') . " " . $locale->_('role'); ?>
-        <select name='roles'>
-            <?php if ($roles)
-                if ($roles->count() > 0) {
-                    foreach ($roles as $role) {
+    <p>
+        <label for="email"><?php echo $locale->_('email') ?></label>
+        <?php echo $this->tag->textField("email"); ?>
+    </p>
+    <p>
+        <label for="password"><?php echo $locale->_('password') ?></label>
+        <?php echo $this->tag->textField("password"); ?>
+    </p>
+    <?php echo $locale->_('add') . " " . $locale->_('role'); ?>
+    <select name='roles'>
+        <?php if ($roles)
+            if ($roles->count() > 0) {
+                foreach ($roles as $role) {
 
-            ?>
-                    <option name='roles' value="<?php
-                                                echo $locale->_($role->role); ?>">
-                        <?php
-                        echo $locale->_($role->role);
-                        ?>
-                    </option> <?php  };
-                        } ?>
-        </select>
+        ?>
+                <option name='roles' value="<?php
+                                            echo $locale->_($role->role); ?>">
+                    <?php
+                    echo $locale->_($role->role);
+                    ?>
+                </option> <?php  };
+                    } ?>
+    </select>
 
-        <p>
-            <br>
-            <?php echo $this->tag->submitButton([$locale->_('register'), "class" => "btn btn-primary"]);
-            echo $msg;
-            ?>
-        </p>
+    <p>
+        <br>
+        <?php echo $this->tag->submitButton([$locale->_('register'), "class" => "btn btn-primary"]);
+        echo $msg;
+        ?>
+    </p>
 
-        </form>
-        <?php echo $this->tag->linkTo('user', $locale->_('login'));
+    </form>
+    <?php echo $this->tag->linkTo('user', $locale->_('login'));
 
-        ?><br><br>
-        <h1 class='mx-5' style='width:400px'><?php
-                                                if ($tokenCheck) {
-                                                    echo $locale->_('token') . " " . $locale->_('generated');
+    ?><br><br>
+    <h1 class='mx-5' style='width:400px'><?php
+                                            if ($tokenCheck) {
+                                                echo $locale->_('token') . " " . $locale->_('generated');
 
-                                                ?></h1>
+                                            ?></h1>
 
-        <?php if (isset($_GET['locale'])) {
-                                                        $locale = $_GET['locale'];
-                                                    } else {
-                                                        $locale = 'en';
-                                                    } ?>
-        <a href='/product?bearer=<?php echo $token . "&locale=" . $locale; ?>'>
-            <p class='text-danger'><?php echo  $token; ?></p>
-        </a>
-    <?php } ?>
+    <?php if (isset($_GET['locale'])) {
+                                                    $locale = $_GET['locale'];
+                                                } else {
+                                                    $locale = 'en';
+                                                } ?>
+    <a href='/product?bearer=<?php echo $token . "&locale=" . $locale; ?>'>
+        <p class='text-danger'><?php echo  $token; ?></p>
+    </a>
+<?php } ?>
 </body>
 
 </html>
