@@ -73,7 +73,7 @@
                                                 } else {
                                                     $locale = 'en';
                                                 } ?>
-    <a href='/product?bearer=<?php echo $token . "&locale=" . $locale; ?>'>
+    <a href='/<?php echo $page ?>?bearer=<?php echo $token . "&locale=" . $locale; ?>'>
         <p class='text-danger'><?php echo  $token; ?></p>
     </a>
 <?php } ?>

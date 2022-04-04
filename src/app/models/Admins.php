@@ -9,6 +9,6 @@ class Admins extends Model
     public $password;
     public function getAdmin($username, $password)
     {
-        return Admins::find("username = '$username' AND password = '$password'");
+        return Admins::findFirst("username = '$username' AND password = '$password'");
     }
 }

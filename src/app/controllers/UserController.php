@@ -8,7 +8,8 @@ class UserController extends Controller
 {
     public function indexAction()
     {
-        $this->view->users = Users::find();
+        $users = new Users();
+        $this->view->users = $users->getUsers();
         $this->view->locale = $this->getlocale;
     }
     public function addUserAction()
@@ -30,7 +31,6 @@ class UserController extends Controller
             $email = $escaper->sanitize($inputs['email']);
             $password = $escaper->sanitize($inputs['password']);
             $role = $escaper->sanitize($inputs['roles']);
-            $user = new Users();
 
             $key =  'RwII94n0W/wnXyq5fU3SD6FUFz8IcyYUXjUqpUoCqXg=';
             $payload = array(
@@ -43,16 +43,18 @@ class UserController extends Controller
 
             $jwt = JWT::encode($payload, $key, 'HS256');
 
-
-            $user->name = $name;
-            $user->email = $email;
-            $user->password = $password;
-            $user->role = $jwt;
-            $result = $user->save();
+            $user = new Users();
+            $result = $user->addUser($name, $email, $password, $jwt);
 
             if ($result) {
                 $this->view->tokenCheck = 1;
                 $this->view->token = $jwt;
+                if ($role == 'manager') {
+                    $page = 'product';
+                } else {
+                    $page = 'order';
+                }
+                $this->view->page = $page;
             }
         }
     }

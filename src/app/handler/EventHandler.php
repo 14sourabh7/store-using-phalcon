@@ -86,7 +86,7 @@ class EventHandler extends Injectable
 
         $role = $application->request->get('bearer');
         $controller
-            = $application->router->getControllerName() ? $application->router->getControllerName() : 'product';
+            = $application->router->getControllerName();
         $action
             = $application->router->getActionName() ? $application->router->getActionName() : 'index';
 
@@ -116,7 +116,7 @@ class EventHandler extends Injectable
         } else {
             $admin = $this->session->get('admin');
             if (!$admin) {
-                if ($application->router->getControllerName() !== 'admin' || $action !== 'index') {
+                if ($controller !== 'admin' || $action !== 'index') {
                     $logger->log('unauthorised access', 'error');
                     die($local->_('authorised'));
                 }
